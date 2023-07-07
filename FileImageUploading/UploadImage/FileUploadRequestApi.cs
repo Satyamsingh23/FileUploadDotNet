@@ -4,10 +4,10 @@ namespace FileImageUploading.UploadImage
 {
     public class FileUploadRequestApi
     {
-        public int ImgID { get; set; }
-        public string? Customers { get; set; }
+        //public int ImgID { get; set; }
+        //public string? Customers { get; set; }
         public IFormFile? files { get; set; }
-        public string ImgName { get; set; }
+        //public string ImgName { get; set; }
     }
 
     public class FileResponseModel

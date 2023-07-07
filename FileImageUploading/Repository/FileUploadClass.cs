@@ -1,4 +1,5 @@
-﻿using FileImageUploading.UploadImage;
+﻿using FileImageUploading.Models;
+using FileImageUploading.UploadImage;
 
 namespace FileImageUploading.Repository
 {
@@ -11,34 +12,36 @@ namespace FileImageUploading.Repository
         {
             _environment = enviornment;
         }
-        public  FileResponseModel PostFile(FileUploadRequestApi file)
+        public  FileResponseModel PostFile(FileUploadRequestApi obj)
         {
 
             FileResponseModel response= new FileResponseModel();
             FileUploadRequestApi requestApi= new FileUploadRequestApi();
-
-            string webRootPath = _environment.WebRootPath;
-            string contentRootPath = _environment.ContentRootPath;
-
-
-
-            _environment.WebRootPath = Path.Combine(webRootPath, "Upload\\Images");
-
+            FileUpload070723 value = new FileUpload070723();
+            sdirectdbContext _db = new sdirectdbContext();
 
             try
             {
-                requestApi.ImgID = 11;
-                requestApi.ImgName = file.ImgName;
-                if (file.files.Length > 0)
+                //requestApi.ImgID = obj.ImgID;
+                //requestApi.ImgName = obj.ImgName;
+                if (obj.files.Length > 0)
                 {
-                    if (!Directory.Exists(_environment.WebRootPath))
+                    if (!Directory.Exists(_environment.WebRootPath + "\\Upload"))
                     {
-                        Directory.CreateDirectory(_environment.WebRootPath);
+                        Directory.CreateDirectory(_environment.WebRootPath +"\\Upload\\");
                     }
-                    using (FileStream filestream = System.IO.File.Create(_environment.WebRootPath + "\\" + file.files.FileName))
+                    string val1 = DateTime.Now.ToString();
+                    val1 = val1.Replace("/", string.Empty);
+                    val1 = val1.Replace(":", string.Empty);
+                    val1 = val1.Replace(" ", string.Empty);
+                   
+                    using (FileStream filestream = System.IO.File.Create(_environment.WebRootPath + "\\Upload\\"+val1+ obj.files.FileName))
                     {
-                        file.files.CopyTo(filestream);
+                        obj.files.CopyTo(filestream);
                         filestream.Flush();
+                        value.ImgLoc = "\\Upload\\"+ val1 +obj.files.FileName ;
+                        _db.FileUpload070723s.Add(value);
+                        _db.SaveChanges();
                         //  return "\\Upload\\" + objFile.files.FileName;
                     }
                 }
@@ -47,6 +50,7 @@ namespace FileImageUploading.Repository
             {
                 throw;
             }
+            response.requestApi= obj;
             response.ResponseMessage = "File Uploaded";
 
         return response;

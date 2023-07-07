@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Tv8KRTR3j0wLSJ4p8sbSNdHUvK2kD8dP/yAtMTNXqV8=",
+  "Hash": "1HGkGOO3UjIIKGhNzxg9XV9NcJZGOXdwOLZCpq0+S08=",
   "Source": "FileImageUploading",
   "BasePath": "_content/FileImageUploading",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\satyamsingh\\source\\repos\\FileImageUploading\\FileImageUploading\\wwwroot\\Upload\\Images\\imageee.jpg",
+      "Identity": "C:\\Users\\satyamsingh\\source\\repos\\FileImageUploading\\FileImageUploading\\wwwroot\\Upload\\imageee.jpg",
       "SourceId": "FileImageUploading",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\satyamsingh\\source\\repos\\FileImageUploading\\FileImageUploading\\wwwroot\\",
       "BasePath": "_content/FileImageUploading",
-      "RelativePath": "Upload/Images/imageee.jpg",
+      "RelativePath": "Upload/imageee.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -31,7 +31,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Upload\\Images\\imageee.jpg"
+      "OriginalItemSpec": "wwwroot\\Upload\\imageee.jpg"
     }
   ]
 }
