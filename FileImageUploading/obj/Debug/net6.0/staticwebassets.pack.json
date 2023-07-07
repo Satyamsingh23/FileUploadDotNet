@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\satyamsingh\\source\\repos\\FileImageUploading\\FileImageUploading\\wwwroot\\Upload\\Images\\imageee.jpg",
+      "PackagePath": "staticwebassets\\Upload\\Images\\imageee.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.FileImageUploading.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.FileImageUploading.props",
+      "PackagePath": "build\\FileImageUploading.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.FileImageUploading.props",
+      "PackagePath": "buildMultiTargeting\\FileImageUploading.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.FileImageUploading.props",
+      "PackagePath": "buildTransitive\\FileImageUploading.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

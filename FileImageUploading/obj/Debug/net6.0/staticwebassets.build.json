@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "Tv8KRTR3j0wLSJ4p8sbSNdHUvK2kD8dP/yAtMTNXqV8=",
+  "Source": "FileImageUploading",
+  "BasePath": "_content/FileImageUploading",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "FileImageUploading\\wwwroot",
+      "Source": "FileImageUploading",
+      "ContentRoot": "C:\\Users\\satyamsingh\\source\\repos\\FileImageUploading\\FileImageUploading\\wwwroot\\",
+      "BasePath": "_content/FileImageUploading",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\satyamsingh\\source\\repos\\FileImageUploading\\FileImageUploading\\wwwroot\\Upload\\Images\\imageee.jpg",
+      "SourceId": "FileImageUploading",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\satyamsingh\\source\\repos\\FileImageUploading\\FileImageUploading\\wwwroot\\",
+      "BasePath": "_content/FileImageUploading",
+      "RelativePath": "Upload/Images/imageee.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Upload\\Images\\imageee.jpg"
+    }
+  ]
+}

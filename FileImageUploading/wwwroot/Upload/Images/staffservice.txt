@@ -1,0 +1,109 @@
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TristateChronicCare.Common;
+using TristateChronicCare.Common.Constants;
+using TristateChronicCare.Common.Messages;
+using TristateChronicCare.DataContract.Models;
+using TristateChronicCare.DataContract.Models.Email;
+using TristateChronicCare.DataContract.Models.User;
+using TristateChronicCare.Repository.User;
+using TristateChronicCare.RepositoryContract.Staff;
+using TristateChronicCare.RepositoryContract.User;
+using TristateChronicCare.ServiceContract.Email;
+using TristateChronicCare.ServiceContract.Staff;
+using TristateChronicCare.ServiceContract.User;
+using static TristateChronicCare.DataContract.Enums.CommonEnums;
+
+namespace TristateChronicCare.Service.Staff
+{
+    public class StaffService: BaseService, IStaffService
+    {
+        private readonly IStaffRepository _staffRepository;
+        private readonly IEmailService _emailservice;
+        private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _accessor;
+        private readonly JwtSetting _jwtSetting;
+        private IWebHostEnvironment _environment;
+        public StaffService(IStaffRepository staffRepository,
+            IHttpContextAccessor accessor,
+            IEmailService emailService,
+            IConfiguration configuration,
+            IOptions<JwtSetting> jwtoption, IWebHostEnvironment environment) : base(accessor, configuration)
+        {
+            _jwtSetting = jwtoption.Value;
+            _staffRepository = staffRepository;
+            _emailservice = emailService;
+            _configuration = configuration;
+            _accessor = accessor;
+            _environment = environment;
+        }
+        //Add User 
+        public async Task<SQLResponse> addUserAsync(AdduserModel model)
+        {
+            var response = new SQLResponse();
+            try
+            {
+               
+                var user = await _staffRepository.addUserAsync(model);
+                if (user == null)
+                {
+                    response.Message = StatusMessage.EmailDoesNotExist;
+                    response.StatusCode = (int)HttpStatusCodes.OK;
+                }
+
+                else
+                {
+                    var webRoot = _environment.WebRootPath;
+                    var filepath = webRoot + AppSettingsConstants.AddUserTemplatePath;
+                    StreamReader streamReader = new StreamReader(filepath);
+                    string MailText = streamReader.ReadToEnd();
+                    MailText = MailText.Replace("[Name]", model.FirstName + model.LastName);
+                    MailText = MailText.Replace("[username]", model.UserName);
+                    MailText = MailText.Replace("[password]", model.Password);
+
+                    var mailRequest = new MailRequestModel()
+                    {
+                        Body = MailText.ToString(),
+                        ToEmail = model.Email,
+                        Subject = AppSettingsConstants.AdduserSubject
+                    };
+                    await _emailservice.SendEmailAsync(mailRequest, 0);
+                    response.Message = CommonSuccessMessages.EmailSent;
+                    response.StatusCode = (int)HttpStatusCodes.OK;
+                }
+                response.Data = user;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.Message = StatusMessage.ErrorOccured;
+                response.StatusCode = (int)HttpStatusCodes.BadRequest;
+                return response;
+            }
+        }
+        public async Task<SQLResponse> updateUserAsync(AdduserModel request)
+        {
+            var response = new SQLResponse();
+            try
+            {
+                response.Data = await _staffRepository.updateUserAsync(request);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.Message = StatusMessage.ErrorOccured;
+                response.StatusCode = (int)HttpStatusCodes.BadRequest;
+                return response;
+            }
+        }
+    }
+}
